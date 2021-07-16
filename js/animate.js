@@ -79,8 +79,7 @@ proto.setTranslateX = function( x, is3d ) {
   var translateX = this.getPositionValue( x );
   // use 3D transforms for hardware acceleration on iOS
   // but use 2D when settled, for better font-rendering
-  this.slider.style.transform = is3d ?
-    'translate3d(' + translateX + ',0,0)' : 'translateX(' + translateX + ')';
+  this.slider.style.transform = 'translateX(' + translateX + ')';
 };
 
 proto.dispatchScrollEvent = function() {
