@@ -1,19 +1,20 @@
 QUnit.test( 'groupCells', function( assert ) {
-  'use strict';
 
-  var flkty = new Flickity( '#group-cells', {
+  let done = assert.async();
+
+  let flkty = new Flickity( '#group-cells', {
     groupCells: true,
   } );
 
   function getSlideCellsCount() {
-    var counts = flkty.slides.map( function( slide ) {
+    let counts = flkty.slides.map( function( slide ) {
       return slide.cells.length;
     } );
     return counts.join(',');
   }
 
   assert.equal( getSlideCellsCount(), '3,2,2,1,1,3,2', 'groupCells: true' );
-  var targets = flkty.slides.map( function( slide ) {
+  let targets = flkty.slides.map( function( slide ) {
     return slide.target;
   } );
   assert.deepEqual( targets, [ 200, 600, 1000, 1300, 1600, 2000, 2300 ], 'targets' );
@@ -31,10 +32,13 @@ QUnit.test( 'groupCells', function( assert ) {
   flkty.reposition();
   assert.equal( getSlideCellsCount(), '2,1,1,2,1,1,1,2,2,1', 'groupCells: 75%' );
 
-  flkty.element.classList.add('is-expanded'); // 600px wide
-  flkty.options.groupCells = true;
-  flkty.resize();
-  assert.equal( getSlideCellsCount(), '3,3,2,3,3',
-      'groupCells: true, container @ 600px' );
+  flkty.once( 'settle', function() {
+    flkty.element.classList.add('is-expanded'); // 600px wide
+    flkty.options.groupCells = true;
+    flkty.resize();
+    assert.equal( getSlideCellsCount(), '3,3,2,3,3',
+        'groupCells: true, container @ 600px' );
+    done();
+  } );
 
 } );

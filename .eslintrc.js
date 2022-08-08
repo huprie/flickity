@@ -8,15 +8,14 @@ module.exports = {
     commonjs: true,
   },
   parserOptions: {
-    ecmaVersion: 5,
+    ecmaVersion: 2018,
   },
   globals: {
     Flickity: 'readonly',
     QUnit: 'readonly',
-    define: 'readonly',
   },
   rules: {
-    'no-var': 'off',
-    strict: 'off',
+    'prefer-object-spread': 'error',
   },
+  ignorePatterns: [ 'bower_components' ],
 };

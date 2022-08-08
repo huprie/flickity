@@ -1,13 +1,9 @@
-/* globals matchesSelector */
-
 QUnit.test( 'destroy', function( assert ) {
 
-  'use strict';
+  let elem = document.querySelector('#destroy');
+  let flkty = new Flickity( elem );
 
-  var elem = document.querySelector('#destroy');
-  var flkty = new Flickity( elem );
-
-  var done = assert.async();
+  let done = assert.async();
   // do it async
   setTimeout( function() {
     flkty.destroy();
@@ -15,8 +11,7 @@ QUnit.test( 'destroy', function( assert ) {
     assert.ok( !flkty.isActive, 'not active' );
     assert.ok( !Flickity.data( elem ), '.data() returns falsey' );
     assert.ok( elem.children[0], '.cell', 'cell is back as first child' );
-    assert.ok( !matchesSelector( elem, '.flickity-enabled' ),
-        'flickity-enabled class removed' );
+    assert.ok( !elem.matches('.flickity-enabled'), 'flickity-enabled class removed' );
     assert.ok( !elem.querySelector('.flickity-prev-next-button'), 'no buttons' );
     assert.ok( !elem.querySelector('.flickity-page-dots'), 'no page dots' );
     assert.ok( !elem.style.height, 'no height set' );
